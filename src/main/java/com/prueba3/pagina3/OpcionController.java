@@ -17,13 +17,16 @@ public class OpcionController {
         this.carritoService = carritoService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/inicio") // URL final: /opciones/inicio
     public String mostrarOpciones(Model model, HttpSession session) {
         model.addAttribute("opciones", opcionService.listarOpciones());
+
         String usuarioEmail = (String) session.getAttribute("usuarioEmail");
         model.addAttribute("cantidadCarrito", carritoService.obtenerCantidadItems(usuarioEmail));
-        return "seleccion";
+
+        return "seleccion"; // busca seleccion.html en templates
     }
+
 
     @PostMapping("/agregar")
     public String agregarAlCarrito(@RequestParam Long opcionId, @RequestParam String tamano, @RequestParam int cantidad, RedirectAttributes redirectAttributes, HttpSession session) {
